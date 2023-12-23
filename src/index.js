@@ -4,7 +4,6 @@ import * as actions from "./actions";
 
 const store = createStore(reducer);
 const { dispatch } = store;
-
 const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
 
 document.querySelector("#rnd").addEventListener("click", () => {
