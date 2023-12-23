@@ -1,21 +1,20 @@
-import { createStore } from "redux";
+import { createStore, bindActionCreators } from "redux";
 import { reducer } from "./reducer";
-import { inc, dec, rnd } from "./actions";
+import * as actions from "./actions";
 
 const store = createStore(reducer);
+const { dispatch } = store;
 
-document.querySelector("#rnd").addEventListener("click", (e) => {
+const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
+
+document.querySelector("#rnd").addEventListener("click", () => {
   const payload = Math.floor(Math.random() * 10);
-  store.dispatch(rnd(payload));
+  rnd(payload);
 });
 
-document.querySelector("#dec").addEventListener("click", (e) => {
-  store.dispatch(dec());
-});
+document.querySelector("#dec").addEventListener("click", dec);
 
-document.querySelector("#inc").addEventListener("click", (e) => {
-  store.dispatch(inc());
-});
+document.querySelector("#inc").addEventListener("click", inc);
 
 const update = () => {
   document.querySelector("#counter").innerHTML = store.getState();
