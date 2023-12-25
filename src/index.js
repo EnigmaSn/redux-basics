@@ -1,23 +1,28 @@
+import React from "react";
+import { createRoot } from "react-dom/client";
 import { bindActionCreators } from "redux";
 import { configureStore } from "@reduxjs/toolkit";
+import Counter from "./components/counter";
 import { reducer } from "./reducer";
 import * as actions from "./actions";
 
 const store = configureStore({ reducer: reducer });
 const { dispatch } = store;
 const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
-
-document.querySelector("#rnd").addEventListener("click", () => {
-  const payload = Math.floor(Math.random() * 10);
-  rnd(payload);
-});
-
-document.querySelector("#dec").addEventListener("click", dec);
-
-document.querySelector("#inc").addEventListener("click", inc);
+const root = createRoot(document.getElementById("root"));
 
 const update = () => {
-  document.querySelector("#counter").innerHTML = store.getState();
+  root.render(
+    <Counter
+      counter={store.getState()}
+      inc={inc}
+      dec={dec}
+      rnd={() => {
+        const payload = Math.floor(Math.random() * 10);
+        rnd(payload);
+      }}
+    />
+  );
 };
-
+update();
 store.subscribe(update);
