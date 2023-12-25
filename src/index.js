@@ -1,8 +1,9 @@
-import { createStore, bindActionCreators } from "redux";
+import { bindActionCreators } from "redux";
+import { configureStore } from "@reduxjs/toolkit";
 import { reducer } from "./reducer";
 import * as actions from "./actions";
 
-const store = createStore(reducer);
+const store = configureStore({ reducer: reducer });
 const { dispatch } = store;
 const { inc, dec, rnd } = bindActionCreators(actions, dispatch);
 
