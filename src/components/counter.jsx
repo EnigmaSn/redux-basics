@@ -1,7 +1,12 @@
 import React from "react";
 import "./counter.css";
+import { connect } from "react-redux";
 
-export default function Counter({ counter, inc, dec, rnd }) {
+const mapStateToProps = (state) => {
+  return { counter: state };
+};
+
+function Counter({ counter, inc, dec, rnd }) {
   return (
     <div className="jumbotron">
       <h2 id="counter">{counter}</h2>
@@ -19,3 +24,5 @@ export default function Counter({ counter, inc, dec, rnd }) {
     </div>
   );
 }
+
+export default connect(mapStateToProps)(Counter);
